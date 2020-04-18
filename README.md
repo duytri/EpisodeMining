@@ -4,8 +4,8 @@ An inplementation of sequential patterm mining method in Python. [1]
 ## Installation
 
 ```bash
-git clone https://github.com/duytri/episode_mining.git
-cd episode_mining
+git clone https://github.com/duytri/EpisodeMining.git
+cd EpisodeMining
 python setup.py install
 ```
 
