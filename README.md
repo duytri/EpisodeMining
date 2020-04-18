@@ -1,5 +1,5 @@
 # episode_mining
-An inplementation of sequential patterm mining method in Python. [1]
+An inplementation of sequential patterm mining method [1] in Python.
 
 ## Installation
 
@@ -7,6 +7,11 @@ An inplementation of sequential patterm mining method in Python. [1]
 git clone https://github.com/duytri/EpisodeMining.git
 cd EpisodeMining
 python setup.py install
+```
+or using pip
+```bash
+cd EpisodeMining
+pip install ./
 ```
 
 ## How to use
