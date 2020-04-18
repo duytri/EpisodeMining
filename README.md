@@ -1,4 +1,4 @@
-# episode_mining
+# Episode mining
 An inplementation of sequential patterm mining method [1] in Python.
 
 ## Installation

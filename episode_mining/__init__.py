@@ -1,7 +1,7 @@
 # coding: utf-8
 class Episode(object):
     def __init__(self, events):
-        self.events = tuple(events)
+        self.events = list(events)
         self.frequency = 0
         self.superepisodes = []
         self.score = 0.0
