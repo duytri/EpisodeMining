@@ -1,13 +1,13 @@
 # episode_mining
-An inplementation of sequential patterm mining method[1] in Python.
+An inplementation of sequential patterm mining method [1] in Python.
 
 ## Installation
 
-	```bash
-	git clone https://github.com/duytri/episode_mining.git
-	cd episode_mining
-	python setup.py install
-	```
+```bash
+    git clone https://github.com/duytri/episode_mining.git
+    cd episode_mining
+    python setup.py install
+```
 
 ## How to use
 1. Set event sequence and episodes
