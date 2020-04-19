@@ -31,7 +31,7 @@ sequence = sorted([
 ```python
 >>> from episode_mining.winepi import WINEPI, WinEpiRules
 >>> alg = WINEPI(sequence, minFrequent=0.1, episode_type='parallel')
-# to mine serial episodes, set 'serial' insted of 'parallel'
+# to mine serial episodes, set 'serial' instead of 'parallel'
 ```
 
 3. Discover frequent (parallel) episodes
@@ -46,7 +46,9 @@ sequence = sorted([
 >>> winepiRules = WinEpiRules(freqItems, suppData, width=5, minConfidence=0.7)
 >>> ruleList = winepiRules.generateRules()
 >>> winepiRules.printRules(ruleList)
-[WINEPIRule: ['F'] ==> ['C', 'F'] [5] [0.34146341463414637, 0.7000000000000001]
+
+~ Output:
+WINEPIRule: ['F'] ==> ['C', 'F'] [5] [0.34146341463414637, 0.7000000000000001]
 WINEPIRule: ['E'] ==> ['E', 'C'] [5] [0.3902439024390244, 0.7272727272727273]
 WINEPIRule: ['F'] ==> ['E', 'F'] [5] [0.36585365853658536, 0.75]
 WINEPIRule: ['E', 'C'] ==> ['E', 'C', 'F'] [5] [0.2926829268292683, 0.7499999999999999]
@@ -54,7 +56,7 @@ WINEPIRule: ['E', 'F'] ==> ['E', 'C', 'F'] [5] [0.2926829268292683, 0.7999999999
 WINEPIRule: ['C', 'F'] ==> ['E', 'C', 'F'] [5] [0.2926829268292683, 0.857142857142857]
 WINEPIRule: ['E', 'B'] ==> ['E', 'B', 'C'] [5] [0.17073170731707318, 0.875]
 WINEPIRule: ['B', 'C'] ==> ['E', 'B', 'C'] [5] [0.17073170731707318, 0.7000000000000001]
-WINEPIRule: ['E', 'A'] ==> ['E', 'A', 'C'] [5] [0.12195121951219512, 0.7142857142857142]]
+WINEPIRule: ['E', 'A'] ==> ['E', 'A', 'C'] [5] [0.12195121951219512, 0.7142857142857142]
 ```
 
 ## TODO
