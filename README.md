@@ -24,54 +24,37 @@ sequence = sorted([
     (53, 'E'), (54, 'F'), (55, 'C'), (57, 'B'), (58, 'E'), (59, 'A'), (60, 'E'),
     (61, 'C'), (62, 'F'), (65, 'A'), (67, 'D'),
 ], key=lambda x:x[0])
-
-episodes = sorted(['A', 'B', 'C', 'D', 'E', 'F', 'AB', 'EF', 'CD',])
 ```
 
 2. Initialize WINEPI class
 
 ```python
->>> from episode_mining.winepi import WINEPI
->>> w = WINEPI(sequence, episodes, 'parallel')
+>>> from episode_mining.winepi import WINEPI, WinEpiRules
+>>> alg = WINEPI(sequence, minFrequent=0.1, episode_type='parallel')
 # to mine serial episodes, set 'serial' insted of 'parallel'
 ```
 
 3. Discover frequent (parallel) episodes
 
 ```python
-# discover_frequent_episodes(t_s, t_e, win, min_fr):
-#    t_s    : start time of target sequence
-#    t_e    : end time of target sequence
-#    win    : window size
-#    min_fr : threshold of frequency of episodes
->>> w.discover_frequent_episodes(29, 68, 5, 0.1)
-[<ParallelEpisode: A / 0.46511627907>,
- <ParallelEpisode: B / 0.348837209302>,
- <ParallelEpisode: C / 0.558139534884>,
- <ParallelEpisode: D / 0.441860465116>,
- <ParallelEpisode: E / 0.511627906977>,
- <ParallelEpisode: F / 0.46511627907>,
- <ParallelEpisode: A B / 0.232558139535>,
- <ParallelEpisode: C D / 0.139534883721>,
- <ParallelEpisode: E F / 0.348837209302>]
+>>> freqItems, suppData = alg.WinEpi(width=5, step=1)
 ```
 
 4. Generate rules
 
 ```python
-# generate_rules(t_s, t_e, win, min_fr, min_conf)
-#    t_s      : start time of target sequence
-#    t_e      : end time of target sequence
-#    win      : window size
-#    min_fr   : threshold of frequency of episodes
-#    min_conf : threshold of confidence of rules
->>> w.generate_rules(29, 68, 5, 0.1, 0.1)
-[<Rule: A -> A B / 0.5>,
- <Rule: B -> A B / 0.666666666667>,
- <Rule: C -> C D / 0.25>,
- <Rule: D -> C D / 0.315789473684>,
- <Rule: E -> E F / 0.681818181818>,
- <Rule: F -> E F / 0.75>]
+>>> winepiRules = WinEpiRules(freqItems, suppData, width=5, minConfidence=0.7)
+>>> ruleList = winepiRules.generateRules()
+>>> winepiRules.printRules(ruleList)
+[WINEPIRule: ['F'] ==> ['C', 'F'] [5] [0.34146341463414637, 0.7000000000000001]
+WINEPIRule: ['E'] ==> ['E', 'C'] [5] [0.3902439024390244, 0.7272727272727273]
+WINEPIRule: ['F'] ==> ['E', 'F'] [5] [0.36585365853658536, 0.75]
+WINEPIRule: ['E', 'C'] ==> ['E', 'C', 'F'] [5] [0.2926829268292683, 0.7499999999999999]
+WINEPIRule: ['E', 'F'] ==> ['E', 'C', 'F'] [5] [0.2926829268292683, 0.7999999999999999]
+WINEPIRule: ['C', 'F'] ==> ['E', 'C', 'F'] [5] [0.2926829268292683, 0.857142857142857]
+WINEPIRule: ['E', 'B'] ==> ['E', 'B', 'C'] [5] [0.17073170731707318, 0.875]
+WINEPIRule: ['B', 'C'] ==> ['E', 'B', 'C'] [5] [0.17073170731707318, 0.7000000000000001]
+WINEPIRule: ['E', 'A'] ==> ['E', 'A', 'C'] [5] [0.12195121951219512, 0.7142857142857142]]
 ```
 
 ## TODO
