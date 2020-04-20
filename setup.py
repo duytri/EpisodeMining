@@ -6,7 +6,7 @@ __author__ = 'Nguyen Ho Duy Tri'
 
 setup(
     name='episode_mining',
-    version='0.0.1',
+    version='1.0',
     description='An inplementation of sequential patterm mining method',
     author='Nguyen Ho Duy Tri',
     author_email='trinhd@uit.edu.vn',
