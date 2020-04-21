@@ -37,9 +37,9 @@ class WINEPI(object):
 	    return windows
 
 
-	def createC1(self):
+	def createC1(self, windows):
 	    C1 = []
-	    for transaction in self.Windows:
+	    for transaction in windows:
 	        for item in transaction:
 	            if not [item] in C1:
 	                C1.append([item])
@@ -48,16 +48,16 @@ class WINEPI(object):
 	    return list(C1)
 
 
-	def scanWindows_parallel(self, Ck):
+	def scanWindows_parallel(self, windows, Ck):
 	    ssCnt = {}
-	    for tid in self.Windows:
+	    for tid in windows:
 	        for can in Ck:
-	            if can.issubset(tid):
+	            if set(can).issubset(tid):
 	            	#cannot use type 'set' in key of 'dictionary'
 	                #so we use 'tuple' (Error: unhashable type)
 	                if not tuple(can) in ssCnt: ssCnt[tuple(can)]=1
 	                else: ssCnt[tuple(can)] += 1
-	    numItems = float(len(self.Windows))
+	    numItems = float(len(windows))
 	    retList = []
 	    supportData = {}
 	    for key in ssCnt:
@@ -78,14 +78,14 @@ class WINEPI(object):
 		return False
 
 
-	def scanWindows_serial(self, Ck):
+	def scanWindows_serial(self, windows, Ck):
 		ssCnt = {}
-		for tid in self.Windows:
+		for tid in windows:
 			for can in Ck:
 				if self.isSubsetInOrderWithGap(can, tid):
 					if not tuple(can) in ssCnt: ssCnt[tuple(can)]=1
 					else: ssCnt[tuple(can)] += 1
-		numItems = float(len(self.Windows))
+		numItems = float(len(windows))
 		retList = []
 		supportData = {}
 		for key in ssCnt:
@@ -132,14 +132,14 @@ class WINEPI(object):
 	def WinEpi(self, width, step=1):
 		self.width = width
 		self.step = step
-		self.Windows = self.slidingWindow()
-		C1 = self.createC1()
-		L1, supportData = self.scanWindows(C1)
+		windows = self.slidingWindow()
+		C1 = self.createC1(windows)
+		L1, supportData = self.scanWindows(windows, C1)
 		L = [L1]
 		k = 2
 		while (len(L[k-2]) > 0):
 			Ck = self.aprioriGen(L[k-2], k)
-			Lk, supK = self.scanWindows(Ck) #scan DB to get Lk
+			Lk, supK = self.scanWindows(windows, Ck) #scan DB to get Lk
 			supportData.update(supK)
 			L.append(Lk)
 			k += 1
