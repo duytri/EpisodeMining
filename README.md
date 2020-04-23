@@ -30,14 +30,14 @@ sequence = sorted([
 
 ```python
 >>> from episode_mining.winepi import WINEPI, WinEpiRules
->>> alg = WINEPI(sequence, minFrequent=0.1, episode_type='parallel')
+>>> alg = WINEPI(sequence, episode_type='parallel')
 # to mine serial episodes, set 'serial' instead of 'parallel'
 ```
 
 3. Discover frequent (parallel) episodes
 
 ```python
->>> freqItems, suppData = alg.WinEpi(width=5, step=1)
+>>> freqItems, suppData = alg.WinEpi(width=5, step=1, minFrequent=0.1)
 ```
 
 4. Generate rules

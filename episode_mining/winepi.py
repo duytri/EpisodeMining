@@ -4,9 +4,8 @@ from itertools import combinations, permutations
 from . import WINEPIRule
 
 class WINEPI(object):
-	def __init__(self, sequence, minFrequent, episode_type='parallel'):
+	def __init__(self, sequence, episode_type='parallel'):
 		self.sequence = sequence
-		self.minFrequent = minFrequent
 		if episode_type not in ('serial', 'parallel'):
 			raise Exception(
 				'`episode_type` must be `serial` or `parallel`'
@@ -129,9 +128,10 @@ class WINEPI(object):
 		return resList
 
 
-	def WinEpi(self, width, step=1):
+	def WinEpi(self, width, step=1, minFrequent):
 		self.width = width
 		self.step = step
+		self.minFrequent = minFrequent
 		windows = self.slidingWindow()
 		C1 = self.createC1(windows)
 		L1, supportData = self.scanWindows(windows, C1)
@@ -143,6 +143,9 @@ class WINEPI(object):
 			supportData.update(supK)
 			L.append(Lk)
 			k += 1
+		#remove empty last itemset from L
+		if L[-1] == []:
+			L.pop()
 		return L, supportData
 
 
