@@ -50,6 +50,52 @@ class MINEPI(object):
 		return True
 
 
+	def createCandidates_parallel(self, Lk, L1, k):
+		# create candidates list
+		candidatesK = [] #candidates list
+		generatedCans = [] 
+		lkKeys = sorted(set([item for t in Lk for item in t])) # get all episodes and sort / Lk:get all keys
+		generatedCans = list(combinations(lkKeys, k))
+		for can in generatedCans:
+			if self.checkSubsetFrequency(can, Lk, k-1): #if all subsets of can is frequent / Lk:get all keys
+				candidatesK.append(can)
+		# create minimal occurrence of candidates
+		if len(candidatesK) == 0: # if candidates list is null
+			return dict()
+		else:
+			Ck = {}
+			if k == 2: #candidate 2
+				for can in candidatesK: # can is tuple
+					Ck[can] = set()
+					for mok in Lk[tuple(can[0])]:
+						for mo1 in L1[tuple(can[1])]:
+							tsmin = min(mok[0], mo1[0])
+							temax = max(mok[1], mo1[1])
+							# temax - tsmin <= max_width
+							if temax - tsmin <= self.max_width:
+								Ck[can].add(tuple((tsmin, temax)))
+			else: #candidate > 2
+				for can in candidatesK: # can is tuple
+					Ck[can] = set()
+					for mok in Lk[can[:-1]]:
+						for mo1 in L1[tuple(can[-1])]:
+							tsmin = min(mok[0], mo1[0])
+							temax = max(mok[1], mo1[1])
+							# temax - tsmin <= max_width
+							if temax - tsmin <= self.max_width:
+								Ck[can].add(tuple((tsmin, temax)))
+			# recheck minimal occurrence is minimal
+			for episode, setOfMOs in Ck.items():
+				rem = set() #remove set
+				for mo1 in setOfMOs:
+					for mo2 in setOfMOs.difference(mo1):
+						# mo1[0] is mo1.ts, mo2[0] is mo2.ts, mo1[1] is mo1.te, mo2[1] is mo2.te
+						if (mo1[0]==mo2[0] and mo1[1] < mo2[1]) or (mo1[0] > mo2[0] and mo1[1] == mo2[1]) or (mo1[0] > mo2[0] and mo1[1] < mo2[1]):
+							rem.add(mo2)
+				Ck[episode] = setOfMOs.difference(rem)
+			return Ck
+
+
 	def createCandidates_serial(self, Lk, L1, k):
 		# create candidates list
 		candidatesK = [] #candidates list

@@ -59,9 +59,5 @@ WINEPIRule: ['B', 'C'] ==> ['E', 'B', 'C'] [5] [0.17073170731707318, 0.700000000
 WINEPIRule: ['E', 'A'] ==> ['E', 'A', 'C'] [5] [0.12195121951219512, 0.7142857142857142]
 ```
 
-## TODO
-
-* Implement MINEPI method
-
 # Reference
 1. H. Mannila, H. Toivonen, and A. I. Verkamo, “Discovery of Frequent Episodes in Event Sequences,” Data Min. Knowl. Discov., vol. 1, no. 3, pp. 259–289, 1997.
