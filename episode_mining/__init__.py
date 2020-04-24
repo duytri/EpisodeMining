@@ -16,7 +16,7 @@ class WINEPIRule(object):
 
 
 class MINEPIRule(object):
-    def __init__(self, antecedent, consequent, width1, width2, supp, conf):
+    def __init__(self, antecedent, width1, consequent, width2, supp, conf):
         self.antecedent = antecedent
         self.consequent = consequent
         self.width1 = width1
