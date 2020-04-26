@@ -128,7 +128,7 @@ class WINEPI(object):
 		return resList
 
 
-	def WinEpi(self, width, step=1, minFrequent):
+	def WinEpi(self, width, step, minFrequent):
 		self.width = width
 		self.step = step
 		self.minFrequent = minFrequent
