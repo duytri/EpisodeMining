@@ -138,7 +138,7 @@ class MINEPI(object):
 			return Ck
 
 
-	def MinEpi(self, minFrequent, max_width, step):
+	def MinEpi(self, max_width, step, minFrequent):
 		self.minFrequent = minFrequent
 		self.max_width = max_width
 		self.step = step
